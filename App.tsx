@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, Keyboard } from 'react-native';
 
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
     } else {
       setTaskLists([...taskLists, text])
       setText('')
+      Keyboard.dismiss()
     }
   }
 
