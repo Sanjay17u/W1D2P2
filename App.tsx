@@ -1,5 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, Keyboard } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, Keyboard, FlatList } from 'react-native';
 
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
           </View>
         </View>
 
-        {
+        {/* {
           taskLists.map(function (items, index) {
             return  <View key={index} style={styles.TodoContainer}>
                       <Text style={styles.TodoTask}>{items}</Text> 
@@ -65,7 +66,29 @@ function App() {
                         </View>
                     </View>
           })
-        }
+        } */}
+        
+      <View style={styles.listWrapper}>
+        <FlatList
+          contentContainerStyle={{
+              width: '100%',
+              alignItems: 'center',
+          }}    
+          data={taskLists}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <View style={styles.TodoContainer}>
+              <Text style={styles.TodoTask}>{item}</Text>
+              <View style={styles.TodoTaskButtons}>
+                <Button onPress={() => EditTaskHandler(index)} color="green" title="Edit" />
+                <Button onPress={() => DeleteTaskHandler(index)} color="red" title="Delete" />
+              </View>
+            </View>
+          )}
+        />
+      </View>
+
+
       </View>
     </>
   )
@@ -141,5 +164,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '50%',
     flexDirection: 'row',
+  },
+
+  listWrapper: {
+  flex: 1,
+  width: '100%',
   }
 })
